@@ -1,6 +1,6 @@
 package com.example.lab9iweb.Beans;
 
-public class Curso_has_docente {
+public class CursoHasDocente {
     //Atributos
     private int idCurso;
     private int idDocente;

@@ -231,6 +231,7 @@
 
     </style>
 </head>
+<%String error = (String ) request.getParameter("error"); %>
 <body>
 <div class="container">
     <input type="checkbox" id="flip">
@@ -254,15 +255,19 @@
         <div class="form-content">
             <div class="login-form">
                 <div class="title">Login</div>
-                <form action="#">
+                <form method="POST" action="LogginServlet" class="col-md-6 col-lg-6">
                     <div class="input-boxes">
                         <div class="input-box">
                             <i class="fas fa-envelope"></i>
-                            <input type="text" placeholder="Enter your email" required>
+                            <input type="text" name="correo" placeholder="Enter your email" required>
                         </div>
+                        <%if(error != null){%>
+
+                        <div class="text sign-up-text" style="color: red; font-size: 12px;" ><%= error%> </div>
+                        <%}%>
                         <div class="input-box">
                             <i class="fas fa-lock"></i>
-                            <input type="password" placeholder="Enter your password" required>
+                            <input type="password" name = "password"  placeholder="Enter your password" required>
                         </div>
                         <div class="button input-box">
                             <input type="submit" value="Submit">
@@ -272,7 +277,8 @@
             </div>
             <div class="signup-form">
                 <div class="title">Signup</div>
-                <form action="#">
+                    <form method="POST" action="LogginServlet" class="col-md-6 col-lg-6">
+
                     <div class="input-boxes">
                         <div class="input-box">
                             <i class="fas fa-user"></i>
@@ -280,18 +286,19 @@
                         </div>
                         <div class="input-box">
                             <i class="fas fa-envelope"></i>
-                            <input type="text" placeholder="Enter your email" required>
+                            <input type="text" name="correo" placeholder="Enter your email" required>
                         </div>
                         <div class="input-box">
                             <i class="fas fa-lock"></i>
-                            <input type="password" placeholder="Enter your password" required>
+                            <input type="password" name="password" placeholder="Enter your password" required>
                         </div>
                         <div class="button input-box">
                             <input type="submit" value="Sumbit">
                         </div>
                         <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
                     </div>
-                </form>
+
+                    </form>
             </div>
         </div>
     </div>

@@ -1,5 +1,11 @@
 package com.example.lab9iweb.Daos;
+import com.mysql.cj.jdbc.Driver;
 
+import javax.swing.*;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 public abstract class  DaoBase {
 
     public Connection getConnection() throws SQLException {

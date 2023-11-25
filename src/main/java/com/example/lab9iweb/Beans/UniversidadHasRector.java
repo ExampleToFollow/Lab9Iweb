@@ -1,6 +1,6 @@
 package com.example.lab9iweb.Beans;
 
-public class Universidad_has_rector {
+public class UniversidadHasRector {
     //atributos
     private int idUniversidad;
     private int idRector;

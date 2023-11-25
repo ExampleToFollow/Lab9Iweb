@@ -1,6 +1,6 @@
 package com.example.lab9iweb.Beans;
 
-public class Facultad_has_rector {
+public class FacultadHasDecano {
     private int idFacultad;
     private int idDecano;
     //usamos superbeans;

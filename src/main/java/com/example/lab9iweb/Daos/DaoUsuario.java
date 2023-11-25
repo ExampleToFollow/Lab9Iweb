@@ -1,0 +1,37 @@
+package com.example.lab9iweb.Daos;
+
+import com.example.lab9iweb.Beans.Usuario;
+import javax.swing.*;
+import java.io.PrintWriter;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+public class DaoUsuario extends DaoBase {
+
+    //METODO PARA RECONOCER LO HASHEADO
+    public Usuario validarUsuarioPasswordHashed(String correo, String password){
+        Usuario user = new Usuario();
+        //Como el nombre de Usuario es unico en la base de datos no ocurriran conflictos o solo se obtendra una fila
+        String sql = "SELECT * FROM usuario WHERE correo = ? AND password = SHA2(?,256)";
+
+        try (Connection conn = super.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setString(1, correo);
+            pstmt.setString(2, password);
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+                //Guardamos todos sus datos para poder iniciar la sesion , esto ocurre cuando se loguea correctamente
+                if (rs.next()) {
+                    user.setIdUsuario(rs.getInt(1)  );
+                    return user;
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+}
