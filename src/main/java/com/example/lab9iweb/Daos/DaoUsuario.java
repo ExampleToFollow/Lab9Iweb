@@ -23,7 +23,11 @@ public class DaoUsuario extends DaoBase {
             try (ResultSet rs = pstmt.executeQuery();) {
                 //Guardamos todos sus datos para poder iniciar la sesion , esto ocurre cuando se loguea correctamente
                 if (rs.next()) {
-                    user.setIdUsuario(rs.getInt(1)  );
+                    user.setIdUsuario(rs.getInt(1) );
+                    user.setNombre(rs.getString(2));
+                    user.setCorreo(rs.getString(3));
+                    user.setIdRol( rs.getInt(5));
+                    new DaoUsuario().actualizamosDatosAlIngresar(user.getIdUsuario());
                     return user;
                 }
             }
@@ -34,4 +38,20 @@ public class DaoUsuario extends DaoBase {
 
         return null;
     }
+
+    public void actualizamosDatosAlIngresar(int idUsuario){
+        String sql = "UPDATE USUARIO SET ultimo_ingreso = noW() , cantidad_ingresos = cantidad_ingresos +1 WHERE idUsuario = ?";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, idUsuario);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
 }
+
+

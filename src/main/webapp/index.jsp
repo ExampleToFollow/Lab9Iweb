@@ -231,7 +231,7 @@
 
     </style>
 </head>
-<%String error = (String ) request.getParameter("error"); %>
+<%String error = (String ) request.getAttribute("error"); %>
 <body>
 <div class="container">
     <input type="checkbox" id="flip">
