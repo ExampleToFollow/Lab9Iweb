@@ -42,4 +42,24 @@ public class DaoEvaluaciones extends DaoBase {
         }
         return lista;
     }
+
+    public int getCantidadDeEvaluacionesEnSemestreXIdCurso( int idCurso ){
+        int cantidad = 0 ;
+        String sql = "Select count(*)  from evaluaciones where idsemestre = 1  group by idcurso having idCurso = ?;\n";
+        try (Connection conn = super.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, idCurso);
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+                //Guardamos todos sus datos para poder iniciar la sesion , esto ocurre cuando se loguea correctamente
+                while (rs.next()) {
+                    cantidad =  rs.getInt(1);
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return cantidad;
+    }
 }

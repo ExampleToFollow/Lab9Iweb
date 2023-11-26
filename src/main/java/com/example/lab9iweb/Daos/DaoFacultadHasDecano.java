@@ -28,4 +28,6 @@ public class DaoFacultadHasDecano extends DaoBase {
         }
         return idFacultad;
     }
+
+
 }

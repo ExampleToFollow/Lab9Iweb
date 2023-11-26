@@ -11,10 +11,12 @@
 <head>
     <jsp:include page="../includes/bootstrap_header.jsp"/>
     <%@page import="java.util.ArrayList" %>
+    <%@ page import="com.example.lab9iweb.Daos.DaoUsuario" %>
 
     <title>Nuevo empleado</title>
 </head>
 <body>
+<% ArrayList<Integer> lista  = (ArrayList<Integer>) request.getAttribute("listaProfesoresSinCurso"); %>
 <div class='container'>
     <div class="row justify-content-center">
         <form method="POST" action="GestionCursosServlet" class="col-md-6 col-lg-6">
@@ -29,9 +31,11 @@
                 <input type="text" class="form-control form-control-sm" name="codigo" id="codigo">
             </div>
             <div class="mb-3">
-                <label for="Docentes">Docentes disponibles</label>
-                <select name="Docentes" class="form-select" id="Docentes">
-                    <option value="id"> ola </option>
+                <label for="idDocentes">Docentes disponibles</label>
+                <select name="idDocentes" class="form-select" id="idDocentes">
+                    <%for(int idProfesor : lista){%>
+                    <option value="<%= idProfesor%>"> <%= new DaoUsuario().getUsuarioXId(idProfesor).getNombre() %> </option>
+                    <%}%>
                 </select>
             </div>
             <a href="<%= request.getContextPath()%>/GestionCursosServlet" class="btn btn-danger">Cancelar</a>

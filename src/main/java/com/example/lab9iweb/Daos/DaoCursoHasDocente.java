@@ -67,4 +67,34 @@ public class DaoCursoHasDocente extends DaoBase{
         return lista;
     }
 
+    public void insertar(int idCurso , int idDocente ){
+        String sql = "INSERT INTO curso_has_docente (idCurso,idDocente)\n" +
+                " VALUES (? , ?);";
+
+        try(Connection connection = super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setInt(1,idCurso);
+            pstmt.setInt(2,idDocente);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void eliminarTabla(int idCurso,int idDocente){
+        String sql = "delete from curso_has_docente where idCurso = ? and idDocente= ? ";
+
+        try(Connection connection =super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setInt(1,idCurso);
+            pstmt.setInt(2,idDocente);
+
+            pstmt.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

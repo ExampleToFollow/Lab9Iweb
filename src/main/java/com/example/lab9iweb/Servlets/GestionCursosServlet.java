@@ -33,6 +33,8 @@ public class GestionCursosServlet extends HttpServlet {
                 break;
             case "formCrear":
                 //Salta a la vista para el creado
+                //Le damos una lista con los profesores necesarios
+                request.setAttribute("listaProfesoresSinCurso", new DaoUsuario().listarIdProfesoresSinCurso());
                 request.getRequestDispatcher("VistasDecano/CrearCursos.jsp").forward(request,response);
                 break;
             case "editar":
@@ -42,7 +44,8 @@ public class GestionCursosServlet extends HttpServlet {
                 request.getRequestDispatcher("VistasDecano/EditarCursos.jsp").forward(request,response);
                 break;
             case "borrar":
-                String idd = request.getParameter("id");
+                Integer idd = Integer.parseInt(request.getParameter("id"));
+                new DaoCurso().eliminarCurso(idd);
                 //Metodo Borrado
                 response.sendRedirect(request.getContextPath() + "/GestionCursosServlet");
                 break;
@@ -57,11 +60,12 @@ public class GestionCursosServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
         switch(action){
             case("crear"):
-                String nombre = request.getParameter("nombre");
-                String correo = request.getParameter("correo");
-                String password = request.getParameter("password");
-                new DaoUsuario().registrarNuevoProfesor(nombre, correo, password);
-                response.sendRedirect("GestionProfesoresServlet");
+                String nombreCurso = request.getParameter("nombre");
+                String codigo = request.getParameter("codigo");
+                Integer idDocentes = Integer.parseInt(request.getParameter("idDocentes"));
+                int idFacultad = new DaoFacultadHasDecano().obtenerIdFacultad( ((Usuario)request.getSession().getAttribute("usuario")).getIdUsuario());
+                new DaoCurso().registrarNuevoCurso(nombreCurso,codigo,idDocentes, idFacultad);
+                response.sendRedirect("GestionCursosServlet");
                 break;
             case("edit"):
                 String idCurso = request.getParameter("idCurso");

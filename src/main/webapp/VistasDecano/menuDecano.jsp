@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@page import="java.util.ArrayList" %>
+<%@ page import="com.example.lab9iweb.Daos.DaoEvaluaciones" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en" data-bs-theme="auto">
@@ -132,11 +133,60 @@
                 <th>Fecha Registro</th>
                 <th>Ultima fecha Edicion </th>
                 <th>Edicion</th>
-                <th>Eliminar</th>
+
 
             </tr>
         <%ArrayList<Curso> lista = (ArrayList<Curso>) request.getAttribute("listaCursos") ; %>
-            <%for(Curso c : lista ){%>
+            <%for(Curso c : lista ){
+                if(new DaoEvaluaciones().getCantidadDeEvaluacionesEnSemestreXIdCurso(c.getIdCurso()) >0){
+            %>
+            <tr>
+                <td><%= c.getIdCurso()%>
+                </td>
+                <td><%= c.getCodigo()%>
+                </td>
+                <td><%= c.getNombre()%>
+                </td>
+                <td><%= c.getFacultad().getNombre()%>
+                </td>
+                <td><%= c.getFechaRegistro()%>
+                </td>
+                <td><%= c.getFechaEdicion()%>
+                </td>
+                <td>
+                    <a href="<%=request.getContextPath()%>/GestionCursosServlet?action=editar&id=<%=c.getIdCurso()%>">
+                        Editar
+                    </a>
+                </td>
+
+            </tr>
+        <%}}%>
+        </table>
+    </div>
+    <div class='container'>
+
+        <div class="row mb-5 mt-4">
+            <div class="col-md-7">
+                <h1 class=''> Lista de Cursos sin notas registradas </h1>
+            </div>
+
+        </div>
+        <table class="table">
+            <tr>
+                <th>Id </th>
+                <th>Codigo Curso</th>
+                <th>Nombre</th>
+                <th>Facultad </th>
+                <th>Fecha Registro</th>
+                <th>Ultima fecha Edicion </th>
+                <th>Edicion</th>
+                <th>Eliminar</th>
+
+            </tr>
+            <%ArrayList<Curso> listaOla = (ArrayList<Curso>) request.getAttribute("listaCursos") ; %>
+            <%for(Curso c : listaOla ){
+                if(new DaoEvaluaciones().getCantidadDeEvaluacionesEnSemestreXIdCurso(c.getIdCurso()) == 0){
+            %>
             <tr>
                 <td><%= c.getIdCurso()%>
                 </td>
@@ -161,9 +211,10 @@
                     </a>
                 </td>
             </tr>
-        <%}%>
+            <%}}%>
         </table>
     </div>
+
     </body>
 
 </main>

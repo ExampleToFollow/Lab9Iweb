@@ -39,6 +39,33 @@ public class DaoCurso extends DaoBase {
         return null;
     }
 
+    public Curso getCursoxNombre(String nombre){
+        Curso curso = new Curso();
+        String sql = "SELECT * FROM Curso WHERE nombre= ? ";
+
+        try (Connection conn = super.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setString(1, nombre);
+            try (ResultSet rs = pstmt.executeQuery();) {
+                if (rs.next()) {
+                    curso.setIdCurso(rs.getInt(1));
+                    curso.setCodigo(rs.getString(2));
+                    curso.setNombre(rs.getString(3));
+                    curso.setIdFacultad(rs.getInt(4));
+                    curso.setFacultad(new DaoFacultad().getFacultadXIdFacultad(curso.getIdFacultad()));
+                    curso.setFechaRegistro(rs.getString(5));
+                    curso.setFechaEdicion(rs.getString(6));
+                    return curso;
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
     public ArrayList<Curso> listarCursosXFacultad(int idFacultad){
         ArrayList<Curso> lista = new ArrayList<Curso>();
         String sql = "SELECT * FROM curso WHERE idFacultad= ? ";
@@ -81,6 +108,42 @@ public class DaoCurso extends DaoBase {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void registrarNuevoCurso(String nombreCurso, String codigo,int idDocentes ,int idFacultad){
+        String sql = "INSERT INTO curso (codigo, nombre , idFacultad , fecha_registro, fecha_edicion)\n" +
+                " VALUES (? , ?, ?, now(), now());";
+
+        try(Connection connection = super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setString(1,codigo);
+            pstmt.setString(2,nombreCurso);
+            pstmt.setInt(3,idFacultad);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        //Insertamos el nuevo valor en la tabla
+        int idCurso = new DaoCurso().getCursoxNombre(nombreCurso).getIdCurso();
+        new DaoCursoHasDocente().insertar(idCurso, idDocentes);
+    }
+
+    public void eliminarCurso(int idCurso){
+        int  idDocente =  new DaoCursoHasDocente().getIdDocentexIdCurso(idCurso);
+        new DaoCursoHasDocente().eliminarTabla(idCurso,idDocente);
+        String sql = "delete from curso where idCurso = ?";
+
+        try(Connection connection =super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setInt(1,idCurso);
+            pstmt.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
 }
