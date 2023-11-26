@@ -1,4 +1,34 @@
 package com.example.lab9iweb.Daos;
 
-public class DaoFacultad {
+import com.example.lab9iweb.Beans.Facultad;
+
+public class DaoFacultad extends DaoBase{
+
+    public Facultad getFacultadXIdFacultad(int idFacultad){
+        Facultad facultad=  new Facultad();
+        String sql = "SELECT * FROM FACULTAD WHERE IDFACULTAD= ? ";
+
+        try (Connection conn = super.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, idFacultad);
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+                //Guardamos todos sus datos para poder iniciar la sesion , esto ocurre cuando se loguea correctamente
+                if (rs.next()) {
+                    facultad.setIdFacultad(rs.getInt(1));
+                    facultad.setNombre(rs.getString(2));
+                    facultad.setIdUniversidad(rs.getInt(3));
+                    facultad.setUniversidad(new DaoUniversidad().getUniversidadxIdUniversidad(facultad.getIdUniversidad()));
+                    facultad.setFechaRegistro(rs.getString(4));
+                    facultad.setFechaEdicion(rs.getString(5));
+                    return facultad;
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
 }

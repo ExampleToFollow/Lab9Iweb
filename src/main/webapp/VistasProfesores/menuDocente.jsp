@@ -102,16 +102,27 @@
             </div>
         </div>
         <table class="table">
+
             <tr>
                 <th>Id</th>
                 <th>Estudiantes </th>
-                <th>Manager</th>
-                <th>Location</th>
-                <th></th>
-                <th></th>
+                <th>Código </th>
+                <th>Correo</th>
+                <th>Nota</th>
+                <th>Semestre</th>
+                <th>Fecha Registro</th>
+                <th>Fecha Edicion</th>
             </tr>
 
             <tr>
+                <td>ola
+                </td>
+                <td>ola
+                </td>
+                <td>ola
+                </td>
+                <td>ola
+                </td>
                 <td>ola
                 </td>
                 <td>ola

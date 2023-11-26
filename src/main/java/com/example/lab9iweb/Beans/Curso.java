@@ -9,6 +9,7 @@ public class Curso {
     //Como usamos superbeans podemos traer a toda la facultad ;
     private Facultad facultad;
     private String fechaRegistro;
+    private String fechaEdicion;
 
     //Getters and setters;
 
@@ -59,5 +60,13 @@ public class Curso {
 
     public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getFechaEdicion() {
+        return fechaEdicion;
+    }
+
+    public void setFechaEdicion(String fechaEdicion) {
+        this.fechaEdicion = fechaEdicion;
     }
 }
