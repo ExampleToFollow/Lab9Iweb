@@ -63,9 +63,13 @@ public class GestionCursosServlet extends HttpServlet {
                 String nombreCurso = request.getParameter("nombre");
                 String codigo = request.getParameter("codigo");
                 Integer idDocentes = Integer.parseInt(request.getParameter("idDocentes"));
-                int idFacultad = new DaoFacultadHasDecano().obtenerIdFacultad( ((Usuario)request.getSession().getAttribute("usuario")).getIdUsuario());
-                new DaoCurso().registrarNuevoCurso(nombreCurso,codigo,idDocentes, idFacultad);
-                response.sendRedirect("GestionCursosServlet");
+                if(nombreCurso.equals("") || codigo.equals("") ) {
+                    response.sendRedirect("GestionCursosServlet?action=formCrear");
+                }else{
+                    int idFacultad = new DaoFacultadHasDecano().obtenerIdFacultad(((Usuario) request.getSession().getAttribute("usuario")).getIdUsuario());
+                    new DaoCurso().registrarNuevoCurso(nombreCurso, codigo, idDocentes, idFacultad);
+                    response.sendRedirect("GestionCursosServlet");
+                }
                 break;
             case("edit"):
                 String idCurso = request.getParameter("idCurso");
