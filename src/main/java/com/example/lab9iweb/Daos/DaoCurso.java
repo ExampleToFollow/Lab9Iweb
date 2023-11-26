@@ -69,4 +69,18 @@ public class DaoCurso extends DaoBase {
         return lista;
     }
 
+    public void actualizarNombre(String nuevoNombre, int  idCurso){
+        String sql = "update Curso set nombre= ? , fecha_edicion= now() where idCurso= ? ";
+
+        try(Connection connection = super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+            pstmt.setString(1,nuevoNombre);
+
+            pstmt.setInt(2,idCurso);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

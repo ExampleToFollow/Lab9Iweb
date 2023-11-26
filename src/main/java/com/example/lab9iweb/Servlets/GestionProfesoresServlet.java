@@ -35,12 +35,14 @@ public class GestionProfesoresServlet extends HttpServlet {
                 request.getRequestDispatcher("VistasDecano/CrearProfesores.jsp").forward(request,response);
                 break;
             case "editar":
-                String id = request.getParameter("id");
+                String idProfesor =  request.getParameter("id");
+                request.setAttribute("idProfesor", idProfesor);
                 //Salta a la vista para editar
                 request.getRequestDispatcher("VistasDecano/EditarProfesores.jsp").forward(request,response);
                 break;
             case "borrar":
                 String idd = request.getParameter("id");
+                new DaoUsuario().deleteProfesor(Integer.parseInt(idd));
                 //Metodo Borrado
                 response.sendRedirect(request.getContextPath() + "/GestionProfesoresServlet");
                 break;
@@ -51,6 +53,25 @@ public class GestionProfesoresServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+
+        String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
+        switch(action){
+            case("crear"):
+                String nombre = request.getParameter("nombre");
+                String correo = request.getParameter("correo");
+                String password = request.getParameter("password");
+                new DaoUsuario().registrarNuevoProfesor(nombre, correo, password);
+                response.sendRedirect("GestionProfesoresServlet");
+                break;
+            case("edit"):
+                String idProfesor = request.getParameter("idProfesor");
+                String nuevoNombre = request.getParameter("nombre");
+                new DaoUsuario().actualizarNombre(nuevoNombre, Integer.parseInt(idProfesor));
+                response.sendRedirect("GestionProfesoresServlet");
+                break;
+        }
+
 
     }
 }

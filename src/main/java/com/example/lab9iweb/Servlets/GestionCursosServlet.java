@@ -4,6 +4,7 @@ import com.example.lab9iweb.Beans.Curso;
 import com.example.lab9iweb.Beans.Usuario;
 import com.example.lab9iweb.Daos.DaoCurso;
 import com.example.lab9iweb.Daos.DaoFacultadHasDecano;
+import com.example.lab9iweb.Daos.DaoUsuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -35,7 +36,8 @@ public class GestionCursosServlet extends HttpServlet {
                 request.getRequestDispatcher("VistasDecano/CrearCursos.jsp").forward(request,response);
                 break;
             case "editar":
-                String id = request.getParameter("id");
+                String idCurso = request.getParameter("id");
+                request.setAttribute("idCurso", idCurso);
                 //Salta a la vista para editar
                 request.getRequestDispatcher("VistasDecano/EditarCursos.jsp").forward(request,response);
                 break;
@@ -50,7 +52,24 @@ public class GestionCursosServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
 
+        String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
+        switch(action){
+            case("crear"):
+                String nombre = request.getParameter("nombre");
+                String correo = request.getParameter("correo");
+                String password = request.getParameter("password");
+                new DaoUsuario().registrarNuevoProfesor(nombre, correo, password);
+                response.sendRedirect("GestionProfesoresServlet");
+                break;
+            case("edit"):
+                String idCurso = request.getParameter("idCurso");
+                String nuevoNombre = request.getParameter("nombre");
+                new DaoCurso().actualizarNombre(nuevoNombre, Integer.parseInt(idCurso));
+                response.sendRedirect("GestionCursosServlet");
+                break;
+        }
     }
 }
 

@@ -104,6 +104,51 @@ public class DaoUsuario extends DaoBase {
     }
 
 
+    public void registrarNuevoProfesor(String nombre, String correo,String  password){
+        String sql = "INSERT INTO usuario (nombre, correo , password , idrol , ultimo_ingreso, cantidad_ingresos , fecha_registro, fecha_edicion)\n" +
+                " VALUES (? , ?, sha2(?, 256), 4, null , 0, now(), now());";
+
+        try(Connection connection = super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setString(1,nombre);
+            pstmt.setString(2,correo);
+            pstmt.setString(3,password);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void actualizarNombre(String nuevoNombre, int idUsuario) {
+        String sql = "update Usuario set nombre= ? , fecha_edicion= now() where idUsuario= ? ";
+
+        try(Connection connection = super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setString(1,nuevoNombre);
+            pstmt.setInt(2,idUsuario);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteProfesor(int idProfesor){
+        String sql = "delete from usuario where idUsuario = ?";
+
+        try(Connection connection =super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setInt(1,idProfesor);
+            pstmt.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 

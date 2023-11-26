@@ -135,6 +135,7 @@
                 <th>Ultimo ingreso</th>
                 <th>Cantidad Ingresos</th>
                 <th>Fecha Registro</th>
+                <th>Fecha Edicion</th>
                 <th>Editar</th>
             </tr>
         <% ArrayList<Integer> lista  = (ArrayList<Integer>) request.getAttribute("listaProfesoresDeFacultad"); %>
@@ -150,11 +151,14 @@
                 </td>
                 <td><%= new DaoCurso().getCursoxIdCurso(new DaoCursoHasDocente().getIdCursoxDocente(profe.getIdUsuario())).getNombre()%>
                 </td>
-                <td><%=profe.getUltimoIngreso()%>
+
+                <td><%=profe.getUltimoIngreso() == null ? "nunca ha ingresado" : profe.getUltimoIngreso()%>
                 </td>
                 <td><%=profe.getCantidadIngresos()%>
                 </td>
                 <td><%=profe.getFechaRegistro()%>
+                </td>
+                <td><%=profe.getFechaEdicion()%>
                 </td>
                 <td>
                     <a href="<%=request.getContextPath()%>/GestionProfesoresServlet?action=editar&id=<%= profe.getIdUsuario()%>">
@@ -179,6 +183,7 @@
                 <th>Ultimo ingreso</th>
                 <th>Cantidad Ingresos</th>
                 <th>Fecha Registro</th>
+                <th>Fecha Edicion</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
@@ -193,11 +198,13 @@
                 </td>
                 <td><%=profe.getCorreo()%>
                 </td>
-                <td><%=profe.getUltimoIngreso()%>
+                <td><%=profe.getUltimoIngreso() == null ? "nunca ha ingresado" : profe.getUltimoIngreso()%>
                 </td>
                 <td><%=profe.getCantidadIngresos()%>
                 </td>
                 <td><%=profe.getFechaRegistro()%>
+                </td>
+                <td><%=profe.getFechaEdicion()%>
                 </td>
                 <td>
                     <a href="<%=request.getContextPath()%>/GestionProfesoresServlet?action=editar&id=<%= profe.getIdUsuario()%>">
