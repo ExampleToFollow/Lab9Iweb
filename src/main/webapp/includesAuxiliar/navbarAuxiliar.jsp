@@ -23,7 +23,6 @@
 
             <script>
                 function cerrarSesion() {
-                    // Redirige a tu enlace deseado
                     window.location.href = "<%=request.getContextPath()%>/LogginServlet?action=logout";
                 }
             </script>
