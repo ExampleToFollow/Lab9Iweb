@@ -1,6 +1,7 @@
 package com.example.lab9iweb.Servlets;
 
 import com.example.lab9iweb.Beans.Usuario;
+import com.example.lab9iweb.Daos.DaoCursoHasDocente;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -16,6 +17,7 @@ public class MenuServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         if((Usuario) request.getSession().getAttribute("usuario") != null) { //Si se inicia session
             //Elegimos la vista dependiendo del rol:
+            Usuario user  = (Usuario) request.getSession().getAttribute("usuario");
             int idRol = ((Usuario)request.getSession().getAttribute("usuario")).getIdRol();
             switch(idRol){
                 case(1):
@@ -30,11 +32,14 @@ public class MenuServlet extends HttpServlet {
                 case(3):
                     //Salta a una vista preparada de decano de una facultad
                     response.sendRedirect("GestionCursosServlet");
-
                     break;
                 case(4):
                     //Salta a una vista de preparada de docente de
-                    response.sendRedirect("GestionEvaluacionesServlet");
+                    if(new DaoCursoHasDocente().getIdCursoxDocente(user.getIdUsuario()) != 0) {
+                        response.sendRedirect("GestionEvaluacionesServlet");
+                    }else{
+                        request.getRequestDispatcher("vistaAuxiliarDocente.jsp").forward(request, response);
+                    }
                     break;
             }
         }else{

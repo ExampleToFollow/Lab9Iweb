@@ -1,4 +1,4 @@
-<%@ page import="com.example.lab9iweb.Beans.Evaluaciones" %><%--
+<%@ page import="com.example.lab9iweb.Beans.Curso" %><%--
   Created by IntelliJ IDEA.
   User: Hineill
   Date: 25/11/2023
@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@page import="java.util.ArrayList" %>
+<%@ page import="com.example.lab9iweb.Daos.DaoEvaluaciones" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en" data-bs-theme="auto">
 <head><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -85,77 +87,22 @@
 </head>
 <body>
 
+
+
+
 <header data-bs-theme="dark">
-    <jsp:include page="../includesDocente/navbarDocente.jsp"></jsp:include>
+    <jsp:include page="/includesAuxiliarDocente/navbarAuxiliarDocente.jsp"></jsp:include>
 </header>
 
 <main>
     <body>
     <div class='container'>
-
-        <div class="row mb-5 mt-4">
-            <div class="col-md-7">
-                <h1 class=''>Lista de Evaluaciones</h1>
-            </div>
-            <div class="col-md-5 col-lg-4 ms-auto my-auto text-md-end">
-                <a href="<%= request.getContextPath()%>/GestionEvaluacionesServlet?action=formCrear" class="btn btn-primary">
-                    Registrar evaluaciones</a>
-            </div>
-        </div>
-        <table class="table">
-
-            <tr>
-                <th>Id</th>
-                <th>Estudiantes </th>
-                <th>Código </th>
-                <th>Correo</th>
-                <th>Nota</th>
-                <th>Semestre</th>
-                <th>Fecha Registro</th>
-                <th>Fecha Edicion</th>
-            </tr>
-            <%ArrayList<Evaluaciones> lista=  (ArrayList<Evaluaciones>) request.getAttribute("listaEvaluaciones");  %>
-            <%for(Evaluaciones e : lista){ %>
-            <tr>
-                <td><%= e.getIdEvaluaciones()%>
-                </td>
-                <td><%= e.getNombreEstudiantes()%>
-                </td>
-                <td><%= e.getCodigoEstudiantes()%>
-                </td>
-                <td><%= e.getCorreoEstudiantes()%>
-                </td>
-                <td><%= e.getNota()%>
-                </td>
-                <td><%= e.getIdSemestre()%>
-                </td>
-                <td><%= e.getFechaRegistro()%>
-                </td>
-                <td><%= e.getFechaEdicion()%>
-                </td>
-                <td>
-                    <a href="<%=request.getContextPath()%>/GestionEvaluacionesServlet?action=editar&id=<%=e.getIdEvaluaciones()%>">
-                        Editar
-                    </a>
-                </td>
-                <td>
-                    <a href="<%=request.getContextPath()%>/GestionEvaluacionesServlet?action=borrar&id=<%=e.getIdEvaluaciones()%>">
-                        Borrar
-                    </a>
-                </td>
-            </tr>
-            <%}%>
-        </table>
+        <img src="images/Perrito.jpg" alt="Auxilio">
     </div>
     </body>
-
-
 
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
-
-
-
 
 </html>

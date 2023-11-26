@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item mx-2">
-                    <a class="nav-link active" aria-current="page" >Bienvenido <%= ((Usuario) request.getSession().getAttribute("usuario")).getNombre()%></a>
+                    <a class="nav-link active" aria-current="page" >Bienvenid@ docente,  <%= ((Usuario) request.getSession().getAttribute("usuario")).getNombre()%></a>
                 </li>
                 <li class="nav-item mx-2">
                     <%Usuario user = (Usuario) request.getSession().getAttribute("usuario");%>
