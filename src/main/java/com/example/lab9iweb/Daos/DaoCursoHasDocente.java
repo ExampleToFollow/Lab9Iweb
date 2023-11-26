@@ -66,4 +66,5 @@ public class DaoCursoHasDocente extends DaoBase{
         }
         return lista;
     }
+
 }

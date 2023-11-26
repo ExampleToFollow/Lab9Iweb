@@ -8,6 +8,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page import="java.util.ArrayList" %>
+<%@ page import="com.example.lab9iweb.Daos.DaoCurso" %>
+<%@ page import="com.example.lab9iweb.Daos.DaoCursoHasDocente" %>
 
 <html lang="en" data-bs-theme="auto">
 <head><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -134,8 +136,6 @@
                 <th>Cantidad Ingresos</th>
                 <th>Fecha Registro</th>
                 <th>Editar</th>
-                <th>Eliminar</th>
-
             </tr>
         <% ArrayList<Integer> lista  = (ArrayList<Integer>) request.getAttribute("listaProfesoresDeFacultad"); %>
 
@@ -148,7 +148,7 @@
                 </td>
                 <td><%=profe.getCorreo()%>
                 </td>
-                <td>ola
+                <td><%= new DaoCurso().getCursoxIdCurso(new DaoCursoHasDocente().getIdCursoxDocente(profe.getIdUsuario())).getNombre()%>
                 </td>
                 <td><%=profe.getUltimoIngreso()%>
                 </td>
@@ -157,45 +157,64 @@
                 <td><%=profe.getFechaRegistro()%>
                 </td>
                 <td>
-                    <a href="<%=request.getContextPath()%>/GestionProfesoresServlet?action=editar&id=id">
+                    <a href="<%=request.getContextPath()%>/GestionProfesoresServlet?action=editar&id=<%= profe.getIdUsuario()%>">
+                        Editar
+                    </a>
+                </td>
+
+            </tr>
+        <%}%>
+        </table>
+        <div class="row mb-5 mt-4">
+            <div class="col-md-7">
+                <h1 class=''>Lista de Profesores sin cursos asignados </h1>
+            </div>
+
+        </div>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Ultimo ingreso</th>
+                <th>Cantidad Ingresos</th>
+                <th>Fecha Registro</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+
+            <%ArrayList<Integer> listaProfeSinCurso = (ArrayList<Integer>) request.getAttribute("listaProfesoresSinCurso");%>
+            <%for(Integer idProfes : listaProfeSinCurso ){%>
+            <%Usuario profe = new DaoUsuario().getUsuarioXId((int) idProfes); %>
+            <tr>
+                <td><%=profe.getIdUsuario()%>
+                </td>
+                <td><%=profe.getNombre()%>
+                </td>
+                <td><%=profe.getCorreo()%>
+                </td>
+                <td><%=profe.getUltimoIngreso()%>
+                </td>
+                <td><%=profe.getCantidadIngresos()%>
+                </td>
+                <td><%=profe.getFechaRegistro()%>
+                </td>
+                <td>
+                    <a href="<%=request.getContextPath()%>/GestionProfesoresServlet?action=editar&id=<%= profe.getIdUsuario()%>">
                         Editar
                     </a>
                 </td>
                 <td>
-                    <a href="<%=request.getContextPath()%>/GestionProfesoresServlet?action=borrar&id=id">
+                    <a href="<%=request.getContextPath()%>/GestionProfesoresServlet?action=borrar&id=<%= profe.getIdUsuario()%>">
                         Borrar
                     </a>
                 </td>
             </tr>
-        <%}%>
+            <%}%>
         </table>
     </div>
     </body>
 
-
-
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <div class="container marketing">
-
-
-
-        <!-- START THE FEATURETTES -->
-
-        <hr class="featurette-divider mt-5">
-
-
-        <hr class="featurette-divider mt-5">
-
-
-
-        <hr class="featurette-divider">
-
-        <!-- /END THE FEATURETTES -->
-
-    </div><!-- /.container -->
 
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

@@ -71,7 +71,10 @@ public class DaoUsuario extends DaoBase {
                     user.setNombre(rs.getString(2));
                     user.setCorreo(rs.getString(3));
                     user.setIdRol( rs.getInt(5));
-                    new DaoUsuario().actualizamosDatosAlIngresar(user.getIdUsuario());
+                    user.setUltimoIngreso(rs.getString(6));
+                    user.setCantidadIngresos(rs.getInt(7));
+                    user.setFechaRegistro(rs.getString(8));
+                    user.setFechaEdicion(rs.getString(9));
                     return user;
                 }
             }
@@ -81,6 +84,23 @@ public class DaoUsuario extends DaoBase {
         }
 
         return null;
+    }
+
+    public ArrayList<Integer> listarIdProfesoresSinCurso(){
+        ArrayList<Integer> lista  =  new ArrayList<Integer>();
+        String sql = "Select idUsuario from Usuario where idUsuario not in(select idDocente from curso_has_docente) and idRol = 4;";
+        try (Connection conn = super.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            try (ResultSet rs = pstmt.executeQuery();) {
+                //Guardamos todos sus datos para poder iniciar la sesion , esto ocurre cuando se loguea correctamente
+                while (rs.next()) {
+                    lista.add(rs.getInt(1));
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
     }
 
 

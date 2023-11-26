@@ -151,12 +151,12 @@
                 <td><%= c.getFechaEdicion()%>
                 </td>
                 <td>
-                    <a href="<%=request.getContextPath()%>/GestionCursosServlet?action=editar&id=id">
+                    <a href="<%=request.getContextPath()%>/GestionCursosServlet?action=editar&id=<%=c.getIdCurso()%>">
                         Editar
                     </a>
                 </td>
                 <td>
-                    <a href="<%=request.getContextPath()%>/GestionCursosServlet?action=borrar&id=id">
+                    <a href="<%=request.getContextPath()%>/GestionCursosServlet?action=borrar&id=<%=c.getIdCurso()%>">
                         Borrar
                     </a>
                 </td>
@@ -165,31 +165,6 @@
         </table>
     </div>
     </body>
-
-
-
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <div class="container marketing">
-
-
-
-        <!-- START THE FEATURETTES -->
-
-        <hr class="featurette-divider mt-5">
-
-
-        <hr class="featurette-divider mt-5">
-
-
-
-        <hr class="featurette-divider">
-
-        <!-- /END THE FEATURETTES -->
-
-    </div><!-- /.container -->
 
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

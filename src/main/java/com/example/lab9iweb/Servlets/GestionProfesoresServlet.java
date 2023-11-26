@@ -4,6 +4,7 @@ import com.example.lab9iweb.Beans.Usuario;
 import com.example.lab9iweb.Daos.DaoCursoHasDocente;
 import com.example.lab9iweb.Daos.DaoFacultad;
 import com.example.lab9iweb.Daos.DaoFacultadHasDecano;
+import com.example.lab9iweb.Daos.DaoUsuario;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -26,6 +27,7 @@ public class GestionProfesoresServlet extends HttpServlet {
                 int idFacultad = new DaoFacultadHasDecano().obtenerIdFacultad(user.getIdUsuario());
                 ArrayList<Integer> lista  = new DaoCursoHasDocente().listarIdCursosDeDocentesDeUnaFacultad(idFacultad);
                 request.setAttribute("listaProfesoresDeFacultad", lista );
+                request.setAttribute("listaProfesoresSinCurso", new DaoUsuario().listarIdProfesoresSinCurso());
                 request.getRequestDispatcher("VistasDecano/listaProfesoresFacultad.jsp").forward(request,response);
                 break;
             case "formCrear":
