@@ -25,6 +25,7 @@ public class DaoSemestre extends DaoBase{
                     semestre.setIdSemestre(rs.getInt(1));
                     semestre.setNombre(rs.getString(2));
                     semestre.setIdAdministrador(rs.getInt(3));
+                    semestre.setHabilitado(rs.getBoolean(4));
                 }
             }
 
@@ -32,6 +33,23 @@ public class DaoSemestre extends DaoBase{
             ex.printStackTrace();
         }
         return semestre;
+    }
+
+    public ArrayList<Integer> getListaIdSemestres(){
+        ArrayList<Integer> lista  =  new ArrayList<Integer>();
+        String sql = "Select idSemestre from Semestre ;";
+        try (Connection conn = super.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            try (ResultSet rs = pstmt.executeQuery();) {
+                //Guardamos todos sus datos para poder iniciar la sesion , esto ocurre cuando se loguea correctamente
+                while (rs.next()) {
+                    lista.add(rs.getInt(1));
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
     }
 
 }

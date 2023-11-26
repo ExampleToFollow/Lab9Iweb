@@ -7,6 +7,7 @@ public class Semestre {
     private int idAdministrador;
     //Con superbeans podemos obtener a todo el administrador
     private Usuario administrador;
+    private boolean habilitado;
 
     //GETTERS AND SETTERS
 
@@ -41,5 +42,13 @@ public class Semestre {
 
     public void setAdministrador(Usuario administrador) {
         this.administrador = administrador;
+    }
+
+    public boolean isHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
     }
 }

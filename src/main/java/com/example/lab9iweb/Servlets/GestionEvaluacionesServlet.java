@@ -6,6 +6,7 @@ import com.example.lab9iweb.Beans.Usuario;
 import com.example.lab9iweb.Daos.DaoCurso;
 import com.example.lab9iweb.Daos.DaoCursoHasDocente;
 import com.example.lab9iweb.Daos.DaoEvaluaciones;
+import com.example.lab9iweb.Daos.DaoSemestre;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -30,10 +31,12 @@ public class GestionEvaluacionesServlet extends HttpServlet {
                 Usuario user = (Usuario) request.getSession().getAttribute("usuario");
                 int idCurso = new DaoCursoHasDocente().getIdCursoxDocente(user.getIdUsuario());
                 Curso curso = new DaoCurso().getCursoxIdCurso(idCurso);
+                ArrayList<Integer> listaSemestres = new DaoSemestre().getListaIdSemestres();
+
                 ArrayList<Evaluaciones> listaEvaluaciones =  new DaoEvaluaciones().getListaEvaluacionesXCurso(curso.getIdCurso());
+                request.setAttribute("listaSemestres", listaSemestres);
                 request.setAttribute("listaEvaluaciones", listaEvaluaciones);
                 //Salta a listado de evaluaciones
-
                 request.getRequestDispatcher("VistasProfesores/menuDocente.jsp").forward(request, response);
                 break;
             case "formCrear":
