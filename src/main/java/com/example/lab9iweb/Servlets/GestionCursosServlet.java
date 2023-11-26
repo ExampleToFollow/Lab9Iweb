@@ -1,8 +1,15 @@
 package com.example.lab9iweb.Servlets;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import com.example.lab9iweb.Beans.Curso;
+import com.example.lab9iweb.Beans.Usuario;
+import com.example.lab9iweb.Daos.DaoCurso;
+import com.example.lab9iweb.Daos.DaoFacultadHasDecano;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 import java.io.IOException;
 
@@ -17,6 +24,10 @@ public class GestionCursosServlet extends HttpServlet {
         switch (action){
             case "lista":
                 //Salta al listado
+                Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+                int idFacultad = new DaoFacultadHasDecano().obtenerIdFacultad(user.getIdUsuario());
+                ArrayList<Curso> lista = new DaoCurso().listarCursosXFacultad(idFacultad);
+                request.setAttribute("listaCursos", lista);
                 request.getRequestDispatcher("VistasDecano/menuDecano.jsp").forward(request,response);
                 break;
             case "formCrear":

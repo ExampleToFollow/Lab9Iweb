@@ -1,6 +1,13 @@
 package com.example.lab9iweb.Daos;
 
 import com.example.lab9iweb.Beans.Facultad;
+import javax.swing.*;
+import java.io.PrintWriter;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class DaoFacultad extends DaoBase{
 

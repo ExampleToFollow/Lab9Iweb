@@ -1,8 +1,17 @@
 package com.example.lab9iweb.Servlets;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import com.example.lab9iweb.Beans.Curso;
+import com.example.lab9iweb.Beans.Evaluaciones;
+import com.example.lab9iweb.Beans.Usuario;
+import com.example.lab9iweb.Daos.DaoCurso;
+import com.example.lab9iweb.Daos.DaoCursoHasDocente;
+import com.example.lab9iweb.Daos.DaoEvaluaciones;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 import java.io.IOException;
 
@@ -16,7 +25,15 @@ public class GestionEvaluacionesServlet extends HttpServlet {
 
         switch (action){
             case "lista":
-                //Salta al listado
+                //Obtenemos lista de evaluaciaones
+
+                Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+                int idCurso = new DaoCursoHasDocente().getIdCursoxDocente(user.getIdUsuario());
+                Curso curso = new DaoCurso().getCursoxIdCurso(idCurso);
+                ArrayList<Evaluaciones> listaEvaluaciones =  new DaoEvaluaciones().getListaEvaluacionesXCurso(curso.getIdCurso());
+                request.setAttribute("listaEvaluaciones", listaEvaluaciones);
+                //Salta a listado de evaluaciones
+
                 request.getRequestDispatcher("VistasProfesores/menuDocente.jsp").forward(request, response);
                 break;
             case "formCrear":

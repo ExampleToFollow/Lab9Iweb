@@ -1,4 +1,4 @@
 package com.example.lab9iweb.Daos;
 
-public class DaoUniversidadHasRector {
+public class DaoUniversidadHasRector extends DaoBase{
 }

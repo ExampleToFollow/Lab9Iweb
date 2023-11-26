@@ -1,10 +1,11 @@
-<%--
+<%@ page import="com.example.lab9iweb.Beans.Evaluaciones" %><%--
   Created by IntelliJ IDEA.
   User: Hineill
   Date: 25/11/2023
   Time: 01:14
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en" data-bs-theme="auto">
 <head><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -113,36 +114,37 @@
                 <th>Fecha Registro</th>
                 <th>Fecha Edicion</th>
             </tr>
-
+            <%ArrayList<Evaluaciones> lista=  (ArrayList<Evaluaciones>) request.getAttribute("listaEvaluaciones");  %>
+            <%for(Evaluaciones e : lista){ %>
             <tr>
-                <td>ola
+                <td><%= e.getIdEvaluaciones()%>
                 </td>
-                <td>ola
+                <td><%= e.getNombreEstudiantes()%>
                 </td>
-                <td>ola
+                <td><%= e.getCodigoEstudiantes()%>
                 </td>
-                <td>ola
+                <td><%= e.getCorreoEstudiantes()%>
                 </td>
-                <td>ola
+                <td><%= e.getNota()%>
                 </td>
-                <td>ola
+                <td><%= e.getIdSemestre()%>
                 </td>
-                <td>ola
+                <td><%= e.getFechaRegistro()%>
                 </td>
-                <td>ola
+                <td><%= e.getFechaEdicion()%>
                 </td>
                 <td>
-                    <a href="<%=request.getContextPath()%>/GestionEvaluacionesServlet?action=editar&id=id">
+                    <a href="<%=request.getContextPath()%>/GestionEvaluacionesServlet?action=editar&id=<%=e.getIdEvaluaciones()%>">
                         Editar
                     </a>
                 </td>
                 <td>
-                    <a href="<%=request.getContextPath()%>/GestionEvaluacionesServlet?action=borrar&id=id">
+                    <a href="<%=request.getContextPath()%>/GestionEvaluacionesServlet?action=borrar&id=<%=e.getIdEvaluaciones()%>">
                         Borrar
                     </a>
                 </td>
             </tr>
-
+            <%}%>
         </table>
     </div>
     </body>

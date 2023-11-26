@@ -1,10 +1,12 @@
-<%--
+<%@ page import="com.example.lab9iweb.Beans.Curso" %><%--
   Created by IntelliJ IDEA.
   User: Hineill
   Date: 25/11/2023
   Time: 01:14
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="java.util.ArrayList" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en" data-bs-theme="auto">
 <head><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -133,19 +135,20 @@
                 <th>Eliminar</th>
 
             </tr>
-
+        <%ArrayList<Curso> lista = (ArrayList<Curso>) request.getAttribute("listaCursos") ; %>
+            <%for(Curso c : lista ){%>
             <tr>
-                <td>ola
+                <td><%= c.getIdCurso()%>
                 </td>
-                <td>ola
+                <td><%= c.getCodigo()%>
                 </td>
-                <td>ola
+                <td><%= c.getNombre()%>
                 </td>
-                <td>ola
+                <td><%= c.getFacultad().getNombre()%>
                 </td>
-                <td>ola
+                <td><%= c.getFechaRegistro()%>
                 </td>
-                <td>ola
+                <td><%= c.getFechaEdicion()%>
                 </td>
                 <td>
                     <a href="<%=request.getContextPath()%>/GestionCursosServlet?action=editar&id=id">
@@ -158,7 +161,7 @@
                     </a>
                 </td>
             </tr>
-
+        <%}%>
         </table>
     </div>
     </body>

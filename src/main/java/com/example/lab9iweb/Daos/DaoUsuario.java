@@ -7,6 +7,8 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+
 public class DaoUsuario extends DaoBase {
 
     //METODO PARA RECONOCER LO HASHEADO

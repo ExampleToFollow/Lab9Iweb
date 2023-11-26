@@ -4,6 +4,7 @@ import com.example.lab9iweb.Beans.Usuario;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import java.util.ArrayList;
 
 import java.io.IOException;
 
@@ -28,13 +29,12 @@ public class MenuServlet extends HttpServlet {
                     break;
                 case(3):
                     //Salta a una vista preparada de decano de una facultad
-                    request.getRequestDispatcher("VistasDecano/menuDecano.jsp").forward(request, response);
+                    response.sendRedirect("GestionCursosServlet");
 
                     break;
                 case(4):
                     //Salta a una vista de preparada de docente de
-                    request.getRequestDispatcher("VistasProfesores/menuDocente.jsp").forward(request, response);
-
+                    response.sendRedirect("GestionEvaluacionesServlet");
                     break;
             }
         }else{
