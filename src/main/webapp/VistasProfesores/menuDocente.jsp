@@ -102,7 +102,8 @@
         %>
         <div class="row mb-5 mt-4">
             <div class="col-md-7">
-                <h1 class=''>Lista de Evaluaciones <%= (String) request.getAttribute("idSemestreFiltrado") == null ? new DaoSemestre().getSemestrexIdSemestre(SemestreActual).getNombre() : new DaoSemestre().getSemestrexIdSemestre(Integer.parseInt((String) request.getAttribute("idSemestreFiltrado"))).getNombre()%></h1>
+                <%String idSemestreFiltrado = (String) request.getAttribute("idSemestreFiltrado") == null ? new DaoSemestre().getSemestrexIdSemestre(SemestreActual).getNombre() : new DaoSemestre().getSemestrexIdSemestre(Integer.parseInt((String) request.getAttribute("idSemestreFiltrado"))).getNombre();%>
+                <h1 class=''>Lista de Evaluaciones <%= idSemestreFiltrado%></h1>
             </div>
             <div class="col-md-5 col-lg-4 ms-auto my-auto text-md-end">
                 <a href="<%= request.getContextPath()%>/GestionEvaluacionesServlet?action=formCrear" class="btn btn-primary">
@@ -135,7 +136,9 @@
                 <th>Fecha Edicion</th>
             </tr>
             <%ArrayList<Evaluaciones> lista=  (ArrayList<Evaluaciones>) request.getAttribute("listaEvaluaciones");  %>
-            <%for(Evaluaciones e : lista){ %>
+            <%for(Evaluaciones e : lista){
+                if(e.getIdSemestre() == new DaoSemestre().getSemestrexIdSemestre(Integer.parseInt((String) request.getAttribute("idSemestreFiltrado"))).getIdSemestre()){
+            %>
             <tr>
                 <td><%= e.getIdEvaluaciones()%>
                 </td>
@@ -153,6 +156,7 @@
                 </td>
                 <td><%= e.getFechaEdicion()%>
                 </td>
+                <%if(e.getIdSemestre() == new DaoSemestre().getSemestreActual().getIdSemestre()){%>
                 <td>
                     <a href="<%=request.getContextPath()%>/GestionEvaluacionesServlet?action=editar&id=<%=e.getIdEvaluaciones()%>">
                         Editar
@@ -163,8 +167,10 @@
                         Borrar
                     </a>
                 </td>
+                <%}%>
             </tr>
-            <%}%>
+            <%}
+            }%>
         </table>
     </div>
     </body>

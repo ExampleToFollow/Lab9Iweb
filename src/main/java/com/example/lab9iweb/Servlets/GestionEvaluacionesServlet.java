@@ -28,7 +28,7 @@ public class GestionEvaluacionesServlet extends HttpServlet {
             Curso curso = new DaoCurso().getCursoxIdCurso(idCurso);
             ArrayList<Integer> listaSemestres = new DaoSemestre().getListaIdSemestres();
             int idSemestreFiltrado = request.getParameter("idSemestre") == null ? new DaoSemestre().getSemestreActual().getIdSemestre() : Integer.parseInt(request.getParameter("idSemestre"));
-            ArrayList<Evaluaciones> listaEvaluaciones =  new DaoEvaluaciones().getListaEvaluacionesXCurso(curso.getIdCurso() , idSemestreFiltrado);
+            ArrayList<Evaluaciones> listaEvaluaciones =  new DaoEvaluaciones().getListaEvaluacionesXCurso(curso.getIdCurso() );
             request.setAttribute("idSemestreFiltrado","" + idSemestreFiltrado);
             request.setAttribute("listaSemestres", listaSemestres);
             request.setAttribute("listaEvaluaciones", listaEvaluaciones);

@@ -12,14 +12,13 @@ import java.util.ArrayList;
 
 public class DaoEvaluaciones extends DaoBase {
 
-    public ArrayList<Evaluaciones> getListaEvaluacionesXCurso(int idCurso , int idSemestreFiltrado ){
+    public ArrayList<Evaluaciones> getListaEvaluacionesXCurso(int idCurso ){
         ArrayList<Evaluaciones> lista = new ArrayList<Evaluaciones>();
-        String sql = "SELECT * FROM Evaluaciones WHERE idCurso= ? and idSemestre = ? ";
+        String sql = "SELECT * FROM Evaluaciones WHERE idCurso= ? ";
 
         try (Connection conn = super.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setInt(1, idCurso);
-            pstmt.setInt(2, idSemestreFiltrado);
             try (ResultSet rs = pstmt.executeQuery();) {
                 //Guardamos todos sus datos para poder iniciar la sesion , esto ocurre cuando se loguea correctamente
                 while (rs.next()) {
