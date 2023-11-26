@@ -123,15 +123,22 @@
         </div>
         <table class="table">
             <tr>
-                <th>Department ID</th>
-                <th>Department name</th>
-                <th>Manager</th>
-                <th>Location</th>
-                <th>Editar</th>
-                <th>Borrar</th>
+                <th>Id </th>
+                <th>Codigo Curso</th>
+                <th>Nombre</th>
+                <th>Facultad </th>
+                <th>Fecha Registro</th>
+                <th>Ultima fecha Edicion </th>
+                <th>Edicion</th>
+                <th>Eliminar</th>
+
             </tr>
 
             <tr>
+                <td>ola
+                </td>
+                <td>ola
+                </td>
                 <td>ola
                 </td>
                 <td>ola

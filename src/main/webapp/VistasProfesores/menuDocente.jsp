@@ -103,8 +103,8 @@
         </div>
         <table class="table">
             <tr>
-                <th>Department ID</th>
-                <th>Department name</th>
+                <th>Id</th>
+                <th>Estudiantes </th>
                 <th>Manager</th>
                 <th>Location</th>
                 <th></th>
