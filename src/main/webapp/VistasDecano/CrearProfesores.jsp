@@ -4,6 +4,8 @@
 <head>
     <jsp:include page="../includes/bootstrap_header.jsp"/>
     <title>Nuevo empleado</title>
+    <%@page import="java.util.ArrayList" %>
+
 </head>
 <body>
 <div class='container'>

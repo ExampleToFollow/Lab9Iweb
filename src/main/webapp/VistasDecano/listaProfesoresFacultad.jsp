@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.example.lab9iweb.Beans.Usuario" %>
+<%@ page import="com.example.lab9iweb.Daos.DaoUsuario" %><%--
   Created by IntelliJ IDEA.
   User: Hineill
   Date: 25/11/2023
@@ -6,6 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="java.util.ArrayList" %>
+
 <html lang="en" data-bs-theme="auto">
 <head><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <meta charset="utf-8">
@@ -134,21 +137,24 @@
                 <th>Eliminar</th>
 
             </tr>
+        <% ArrayList<Integer> lista  = (ArrayList<Integer>) request.getAttribute("listaProfesoresDeFacultad"); %>
 
+            <%for(Integer idProfes : lista ){%>
+            <%Usuario profe = new DaoUsuario().getUsuarioXId((int) idProfes); %>
             <tr>
-                <td>ola
+                <td><%=profe.getIdUsuario()%>
+                </td>
+                <td><%=profe.getNombre()%>
+                </td>
+                <td><%=profe.getCorreo()%>
                 </td>
                 <td>ola
                 </td>
-                <td>ola
+                <td><%=profe.getUltimoIngreso()%>
                 </td>
-                <td>ola
+                <td><%=profe.getCantidadIngresos()%>
                 </td>
-                <td>ola
-                </td>
-                <td>ola
-                </td>
-                <td>ola
+                <td><%=profe.getFechaRegistro()%>
                 </td>
                 <td>
                     <a href="<%=request.getContextPath()%>/GestionProfesoresServlet?action=editar&id=id">
@@ -161,7 +167,7 @@
                     </a>
                 </td>
             </tr>
-
+        <%}%>
         </table>
     </div>
     </body>

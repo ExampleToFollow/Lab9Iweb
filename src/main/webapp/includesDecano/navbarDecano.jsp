@@ -1,4 +1,6 @@
 <%@ page import="com.example.lab9iweb.Beans.Usuario" %>
+<%@ page import="com.example.lab9iweb.Daos.DaoFacultadHasDecano" %>
+<%@ page import="com.example.lab9iweb.Daos.DaoFacultad" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -22,7 +24,9 @@
                     <a class="nav-link active" aria-current="page" >Bienvenido <%= ((Usuario) request.getSession().getAttribute("usuario")).getNombre()%></a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link active" href="<%=request.getContextPath()%>/GestionCursosServlet">Cursos de la facultad "nombre de la facultad"</a>
+                    <%Usuario user =(Usuario) request.getSession().getAttribute("usuario"); %>
+                    <%int idFacultad = new DaoFacultadHasDecano().obtenerIdFacultad(user.getIdUsuario());%>
+                    <a class="nav-link active" href="<%=request.getContextPath()%>/GestionCursosServlet">Cursos de la facultad <%=  new DaoFacultad().getFacultadXIdFacultad(idFacultad).getNombre()%></a>
                 </li>
                 <li class="nav-item mx-2">
                     <!--<a class="nav-link disabled" aria-disabled="true">Disabled</a>-->

@@ -9,6 +9,7 @@
 <html>
 <head>
     <jsp:include page="../includes/bootstrap_header.jsp"/>
+    <%@page import="java.util.ArrayList" %>
 
     <title>Editar empleado</title>
 </head>
