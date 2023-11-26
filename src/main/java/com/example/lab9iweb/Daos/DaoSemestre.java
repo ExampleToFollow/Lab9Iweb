@@ -52,4 +52,27 @@ public class DaoSemestre extends DaoBase{
         return lista;
     }
 
+    public Semestre getSemestreActual(){
+        Semestre semestre = new Semestre();
+        String sql = "SELECT * FROM Semestre WHERE habilitado= true";
+
+        try (Connection conn = super.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+                //Guardamos todos sus datos para poder iniciar la sesion , esto ocurre cuando se loguea correctamente
+                if (rs.next()) {
+                    semestre.setIdSemestre(rs.getInt(1));
+                    semestre.setNombre(rs.getString(2));
+                    semestre.setIdAdministrador(rs.getInt(3));
+                    semestre.setHabilitado(rs.getBoolean(4));
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return semestre;
+    }
+
 }

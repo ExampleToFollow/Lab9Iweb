@@ -90,24 +90,38 @@
 <main>
     <body>
     <div class='container'>
-
+        <%ArrayList<Integer> listaSemestres =  (ArrayList<Integer>) request.getAttribute("listaSemestres");%>
+        <%Integer SemestreActual = 0;
+        bucle1:
+        for(Integer idSemestre :  listaSemestres){
+        if(new DaoSemestre().getSemestrexIdSemestre((int) idSemestre).isHabilitado()){
+            SemestreActual = idSemestre;
+        break bucle1;
+        }
+        }
+        %>
         <div class="row mb-5 mt-4">
             <div class="col-md-7">
-                <h1 class=''>Lista de Evaluaciones</h1>
+                <h1 class=''>Lista de Evaluaciones <%= (String) request.getAttribute("idSemestreFiltrado") == null ? new DaoSemestre().getSemestrexIdSemestre(SemestreActual).getNombre() : new DaoSemestre().getSemestrexIdSemestre(Integer.parseInt((String) request.getAttribute("idSemestreFiltrado"))).getNombre()%></h1>
             </div>
             <div class="col-md-5 col-lg-4 ms-auto my-auto text-md-end">
                 <a href="<%= request.getContextPath()%>/GestionEvaluacionesServlet?action=formCrear" class="btn btn-primary">
                     Registrar evaluaciones</a>
             </div>
         </div>
-        <div class="mb-3">
-            <label for="idSemestre">Semestres</label>
-            <select name="idSemestre" class="form-select" id="idSemestre">
-                <option value="0">-- Sin jefe --</option>
-                <option value="id"> </option>
-            </select>
-            <input type="submit" value="filtrar" class="btn btn-primary"/>
-        </div>
+
+            <form method="POST" action="GestionEvaluacionesServlet" >
+
+                <div class="mb-3">
+                    <label for="idSemestre">Semestres</label>
+                    <select name="idSemestre" class="form-select" id="idSemestre">
+                        <%for(Integer idSemestres : listaSemestres ){%>
+                        <option value="<%=idSemestres%>"> <%= new DaoSemestre().getSemestrexIdSemestre(idSemestres).getNombre()%></option>
+                        <%}%>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         <table class="table">
 
             <tr>
