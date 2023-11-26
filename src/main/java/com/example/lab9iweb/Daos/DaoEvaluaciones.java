@@ -95,10 +95,40 @@ public class DaoEvaluaciones extends DaoBase {
 
 
     public void  registrarEvaluacion(String nombreAlumno , String codigo ,  String correo , int nota, int idProfesor){
+        String sql = "INSERT INTO evaluaciones (nombre_estudiantes, codigo_estudiantes , correo_estudiantes , nota  ,idCurso , idSemestre, fecha_registro, fecha_edicion)\n" +
+                " VALUES (? , ?, ?, ?, ? , ?, now(), now());";
+
+        try(Connection connection = super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setString(1,nombreAlumno);
+            pstmt.setString(2,codigo);
+            pstmt.setString(3,correo);
+            pstmt.setInt(4,nota);
+            pstmt.setInt(5,new DaoCursoHasDocente().getIdCursoxDocente(idProfesor));
+            pstmt.setInt(6,new DaoSemestre().getSemestreActual().getIdSemestre());
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     public void actualizarEvaluacion(int idEvaluacion,String nuevoNombre, String nuevoCodigo, String nuevoCorreo, int nuevaNota ){
 
+    }
+
+    public void eliminarEvaluacion(int idd){
+        String sql = "delete from Evaluaciones where idEvaluaciones = ?";
+
+        try(Connection connection =super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setInt(1,idd);
+            pstmt.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

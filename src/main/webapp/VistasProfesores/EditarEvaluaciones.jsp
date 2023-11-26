@@ -285,6 +285,10 @@
                             <input type="text" name="nota" value="<%=eva.getNota()%>"  required>
                         </div>
                     </div>
+                    <a href="<%= request.getContextPath()%>/GestionEvaluacionesServlet" class="btn btn-danger">Cancelar</a>
+                    <div class="button input-box">
+                        <input type="submit" value="Guardar" class="btn btn-primary"/>
+                    </div>
 
                 </form>
             </div>

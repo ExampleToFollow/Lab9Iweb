@@ -45,7 +45,7 @@ public class GestionCursosServlet extends HttpServlet {
                 break;
             case "borrar":
                 Integer idd = Integer.parseInt(request.getParameter("id"));
-                new DaoCurso().eliminarCurso(idd);
+                new DaoCurso().eliminarCurso((int)idd);
                 //Metodo Borrado
                 response.sendRedirect(request.getContextPath() + "/GestionCursosServlet");
                 break;
