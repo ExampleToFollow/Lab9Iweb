@@ -116,7 +116,20 @@ public class DaoEvaluaciones extends DaoBase {
     }
 
     public void actualizarEvaluacion(int idEvaluacion,String nuevoNombre, String nuevoCodigo, String nuevoCorreo, int nuevaNota ){
+        String sql = "update Evaluaciones set nombre_estudiantes = ? , codigo_estudiantes = ? , correo_estudiantes = ? , nota = ? , fecha_edicion= now() where idEvaluaciones = ? ";
 
+        try(Connection connection = super.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setString(1,nuevoNombre);
+            pstmt.setString(2,nuevoCodigo);
+            pstmt.setString(3,nuevoCorreo);
+            pstmt.setInt(4,nuevaNota);
+            pstmt.setInt(5,idEvaluacion);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void eliminarEvaluacion(int idd){

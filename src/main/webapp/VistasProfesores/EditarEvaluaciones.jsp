@@ -262,7 +262,7 @@
         <div class="form-content">
             <div class="signup-form">
                 <div class="title">Edita el nombre del alumno</div>
-                <form method="POST" action="GestionCursosServlet?action=edit" class="col-md-6 col-lg-6">
+                <form method="POST" action="GestionEvaluacionesServlet?action=editar" class="col-md-6 col-lg-6">
 
                     <div class="input-boxes">
                         <div class="mb-3">
@@ -284,12 +284,11 @@
                             <i class="fas fa-user"></i>
                             <input type="text" name="nota" value="<%=eva.getNota()%>"  required>
                         </div>
+                        <a href="<%= request.getContextPath()%>/GestionEvaluacionesServlet" class="btn btn-danger">Cancelar</a>
+                        <div class="button input-box">
+                            <input type="submit" value="Guardar" class="btn btn-primary"/>
+                        </div>
                     </div>
-                    <a href="<%= request.getContextPath()%>/GestionEvaluacionesServlet" class="btn btn-danger">Cancelar</a>
-                    <div class="button input-box">
-                        <input type="submit" value="Guardar" class="btn btn-primary"/>
-                    </div>
-
                 </form>
             </div>
             <div class="login-form">

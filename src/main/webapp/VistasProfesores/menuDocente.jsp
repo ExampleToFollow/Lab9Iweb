@@ -110,7 +110,7 @@
             </div>
         </div>
 
-            <form method="POST" action="GestionEvaluacionesServlet" >
+            <form method="get" action="GestionEvaluacionesServlet" >
 
                 <div class="mb-3">
                     <label for="idSemestre">Semestres</label>
@@ -120,7 +120,7 @@
                         <%}%>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Filtrar</button>
             </form>
         <table class="table">
 

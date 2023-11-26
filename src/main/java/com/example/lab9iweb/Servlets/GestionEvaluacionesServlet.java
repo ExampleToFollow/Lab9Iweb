@@ -29,6 +29,7 @@ public class GestionEvaluacionesServlet extends HttpServlet {
             ArrayList<Integer> listaSemestres = new DaoSemestre().getListaIdSemestres();
             int idSemestreFiltrado = request.getParameter("idSemestre") == null ? new DaoSemestre().getSemestreActual().getIdSemestre() : Integer.parseInt(request.getParameter("idSemestre"));
             ArrayList<Evaluaciones> listaEvaluaciones =  new DaoEvaluaciones().getListaEvaluacionesXCurso(curso.getIdCurso() , idSemestreFiltrado);
+            request.setAttribute("idSemestreFiltrado","" + idSemestreFiltrado);
             request.setAttribute("listaSemestres", listaSemestres);
             request.setAttribute("listaEvaluaciones", listaEvaluaciones);
             //Salta a listado de evaluaciones
@@ -63,6 +64,8 @@ public class GestionEvaluacionesServlet extends HttpServlet {
       switch (action){
          case "lista":
             //Salta al listado
+            String idd = (String ) request.getParameter("idSemestre");
+            request.setAttribute("idSemestre",idd );
             response.sendRedirect("GestionEvaluacionesServlet");
             break;
          case "formCrear":
